@@ -1,51 +1,42 @@
-# Assistente SpeckDev
+# Kbot - Assistente Virtual da Kukac
 
 ## Descrição
-O Assistente SpeckDev é uma aplicação inovadora que combina a capacidade de processamento de linguagem natural do GPT-4 com a tecnologia de síntese de voz da ElevenLabs. Este projeto oferece uma interface interativa para os usuários experimentarem conversas realistas com um assistente virtual, gerando respostas e convertendo-as em áudio.
+Kbot é um assistente virtual desenvolvido pela Kukac, capaz de auxiliar nas tarefas do dia a dia, fornecer orientações éticas e interagir de forma inteligente com os usuários. Este assistente é baseado na tecnologia GPT-4 da OpenAI e oferece uma experiência de conversa natural.
 
 ## Tecnologias Utilizadas
-- **Streamlit**: Para a criação de uma interface web amigável.
-- **OpenAI GPT-4**: Para processamento avançado de linguagem natural.
-- **ElevenLabs**: Biblioteca para geração de voz realista.
+- **Streamlit**: Para criar uma interface web interativa e amigável.
+- **OpenAI GPT-4**: Responsável pelo processamento avançado de linguagem natural.
+- **ElevenLabs**: Biblioteca utilizada para a síntese de voz realista.
 
 ## Instalação
-Para instalar e rodar o Assistente SpeckDev localmente, siga os passos abaixo:
+Para utilizar o Kbot localmente, siga os seguintes passos:
 
-```bash
+```
 # Clone o repositório
-git clone https://github.com/emidiosouza/estudo066_inovacao_kukac.git
+git clone https://github.com/emidiosouza/kbot-assistente-virtual.git
 
 # Navegue até a pasta do projeto
-cd estudo066_inovacao_kukac
+cd kbot-assistente-virtual
 
 # Instale as dependências
 pip install -r requirements.txt
 
 # Execute a aplicação
-streamlit run speck_assistant.py
+streamlit run kbot.py
 ```
 
 ## Uso
-Ao iniciar a aplicação, você será apresentado a uma interface web onde pode interagir com o assistente. Digite sua pergunta ou comentário e o assistente responderá, convertendo o texto em áudio.
+Ao iniciar a aplicação, você terá acesso a uma interface web onde pode interagir com o Kbot. Basta digitar suas perguntas ou comentários, e o assistente responderá de forma inteligente, inclusive convertendo as respostas em áudio, caso deseje.
 
 ## Configuração
-Para utilizar as funcionalidades deste projeto, você precisa definir sua chave API do ElevenLabs no arquivo `secrets.toml`.
+Para utilizar as funcionalidades completas do Kbot, você precisará configurar sua chave de API em um arquivo de configuração apropriado. Consulte a documentação para obter detalhes sobre como fazer isso.
 
 ## Contribuições
-Contribuições para melhorar ou expandir as funcionalidades do Assistente SpeckDev são bem-vindas. Sinta-se à vontade para fazer um fork do repositório, criar suas modificações e enviar um pull request.
+Contribuições para aprimorar ou expandir as funcionalidades do Kbot são bem-vindas. Sinta-se à vontade para fazer um fork do repositório, implementar suas melhorias e enviar um pull request.
 
 ## Licença
-Este projeto é distribuído sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+Este projeto é distribuído sob a licença MIT. Consulte o arquivo `LICENSE` para obter mais informações.
 
 ## Contato
 - **Autor**: Emídio Souza
-- **Email**: [emidio.souza@example.com](mailto:emidio.souza@example.com)
-
-
-## Contato
-Autor: Emídio Souza
-Email: emidio.souza@example.com
-
---
-
-"# kbot" 
+- **Email**: [emidio.souza@kukac.ai](mailto:emidio.souza@kukac.ai)
