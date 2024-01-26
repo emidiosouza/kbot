@@ -79,12 +79,12 @@ def check_password():
         with col1:
             st.image('https://github.com/emidiosouza/estudo066_inovacao_kukac/blob/main/kbot.png?raw=true', width=120)
         with col2:
-            st.subheader(":violet[Olá, eu sou a Kbot. Como posso te ajudar hoje?]", divider='violet', help="Para acessar a demo, peça suas credenciais ao Emídio.")
+            st.subheader(":violet[Olá, eu sou a Kbot. Como posso te ajudar hoje?]", divider='violet')
             st.write(":violet[Sou uma robô treinada para te ajudar a resolver problemas do dia a dia da Kukac, agindo de acordo com nosso código de ética. Antes de começar, vamos conferir se você é um kukacker!]")
         
         with st.form("Credentials"):
-            st.subheader("", help="Para acessar a demo, peça suas credenciais ao Emídio.")
-            st.text_input("Qual Kukacker você é?", key="username")
+            st.subheader("")
+            st.text_input("Qual Kukacker você é?", key="username", help="Para acessar a demo, peça suas credenciais ao Emídio.")
             st.text_input("Qual a sua senha?", type="password", key="password")
             st.form_submit_button("🐌 Entrar", on_click=password_entered)
 
