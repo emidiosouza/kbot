@@ -53,6 +53,18 @@ button[title="View fullscreen"]{
     visibility: hidden;}
 </style>
 '''
+# Inject custom CSS to set the width of the sidebar
+st.markdown(
+    """
+    <style>
+        section[data-testid="stSidebar"] {
+            width: 500px !important; # Set the width to your desired value
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 st.markdown(hide_img_fs, unsafe_allow_html=True)
 
 #Configuração da página Streamlit
