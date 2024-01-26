@@ -78,8 +78,7 @@ with st.sidebar:
     st.link_button("Acesse o Código de Ética", "http://www.kukac.ai/codigodeetica")
     audio_on = st.toggle('ÁUDIO', help="Aqui você pode ligar e desligar a voz da assistente")
 st.sidebar.header("", divider='violet')
-st.sidebar.caption(':violet[Desenvolvido pela área de inovação da Kukac]')
-st.sidebar.caption(':violet[Versão atual: 0.0.1]')
+st.sidebar.caption(':violet[Desenvolvido pela área de inovação da Kukac.]:violet[Versão atual: 0.0.1]')
 
 st.subheader(":violet[Como posso ajudar hoje?]", help="""
   # Deixe eu te dar alguns exemplos de questões em que eu posso ajudar:
