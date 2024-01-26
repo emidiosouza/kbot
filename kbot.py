@@ -2,18 +2,36 @@ import streamlit as st
 import openai
 import uuid
 import time
-
-# Inicialização da variável audio
-audio = None
-audio_on = False
-
 from openai import OpenAI
+import hmac
+
+
+#Inicialização OpenAI
 client = OpenAI()
 
 # Select the preferred model
 MODEL = "gpt-4-1106-preview"
 
-st.set_page_config(page_title="Kbot", page_icon="https://media.licdn.com/dms/image/C4D0BAQFU_zHiPt0UqQ/company-logo_200_200/0/1667941232492/kukac_logo?e=2147483647&v=beta&t=jrTrE3DIrNYM2hC70UE9lwJboIf4DFAHMUTuqGrOSxs")
+# Inicialização da variável audio
+audio = None
+audio_on = False
+
+# Função para gerar áudio
+def generate_audio_from_text(tts_text):
+    response = client.audio.speech.create(
+        model="tts-1",
+        voice="nova",
+        input=tts_text
+    )
+    # Salvar o arquivo de áudio
+    audio_file_path = "audio_output.mp3"
+    with open(audio_file_path, "wb") as file:
+        file.write(response.content)
+    return audio_file_path
+
+
+st.set_page_config(page_title="Kbot, a Kukacker.", page_icon="https://media.licdn.com/dms/image/C4D0BAQFU_zHiPt0UqQ/company-logo_200_200/0/1667941232492/kukac_logo?e=2147483647&v=beta&t=jrTrE3DIrNYM2hC70UE9lwJboIf4DFAHMUTuqGrOSxs")
+
 
 # CSS para mudar a fonte para Dosis
 st.markdown("""
@@ -28,23 +46,6 @@ html, body, [class*="st-"], h1, h2, h3, h4, h5, h6 {
                   
 </style>
 """, unsafe_allow_html=True)
-
-#Controle de estados
-if "session_id" not in st.session_state: # Used to identify each session
-    st.session_state.session_id = str(uuid.uuid4())
-
-if "run" not in st.session_state: # Stores the run state of the assistant
-    st.session_state.run = {"status": None}
-
-if "messages" not in st.session_state: # Stores the messages of the assistant
-    st.session_state.messages = []
-
-if "retry_error" not in st.session_state: # Used for error handling
-    st.session_state.retry_error = 0
-
-# Inicializar last_processed_message_id
-if "last_processed_message_id" not in st.session_state:
-    st.session_state.last_processed_message_id = None
 
 #Esconder botão de expansão da imagem
 hide_img_fs = '''
@@ -67,12 +68,77 @@ st.markdown(
 
 st.markdown(hide_img_fs, unsafe_allow_html=True)
 
+def check_password():
+    """Returns `True` if the user had a correct password."""
+    
+    
+    def login_form():
+
+        col1, col2= st.columns([2,9])
+            
+        with col1:
+            st.image('https://github.com/emidiosouza/estudo066_inovacao_kukac/blob/main/kbot.png?raw=true', width=120)
+        with col2:
+            st.subheader(":violet[Olá, eu sou a Kbot. Como posso te ajudar hoje?]", divider='violet', help="Para acessar a demo, peça suas credenciais ao Emídio.")
+            st.write(":violet[Sou uma robô treinada para te ajudar a resolver problemas do dia a dia da Kukac, agindo de acordo com nosso código de ética. Antes de começar, vamos conferir se você é um kukacker!]")
+        
+        with st.form("Credentials"):
+            st.subheader("", help="Para acessar a demo, peça suas credenciais ao Emídio.")
+            st.text_input("Qual Kukacker você é?", key="username")
+            st.text_input("Qual a sua senha?", type="password", key="password")
+            st.form_submit_button("🐌 Entrar", on_click=password_entered)
+
+    def password_entered():
+        """Checks whether a password entered by the user is correct."""
+        if st.session_state["username"] in st.secrets[
+            "passwords"
+        ] and hmac.compare_digest(
+            st.session_state["password"],
+            st.secrets.passwords[st.session_state["username"]],
+        ):
+            st.session_state["password_correct"] = True
+            del st.session_state["password"]  # Don't store the username or password.
+            del st.session_state["username"]
+        else:
+            st.session_state["password_correct"] = False
+
+    # Return True if the username + password is validated.
+    if st.session_state.get("password_correct", False):
+        return True
+
+    # Show inputs for username + password.
+    login_form()
+    if "password_correct" in st.session_state:
+        st.error("😕 Usuário desconhecido ou senha incorreta.")
+    return False
+
+
+if not check_password():
+    st.stop()
+
+#Controle de estados
+if "session_id" not in st.session_state: # Used to identify each session
+    st.session_state.session_id = str(uuid.uuid4())
+
+if "run" not in st.session_state: # Stores the run state of the assistant
+    st.session_state.run = {"status": None}
+
+if "messages" not in st.session_state: # Stores the messages of the assistant
+    st.session_state.messages = []
+
+if "retry_error" not in st.session_state: # Used for error handling
+    st.session_state.retry_error = 0
+
+# Inicializar last_processed_message_id
+if "last_processed_message_id" not in st.session_state:
+    st.session_state.last_processed_message_id = None
+
 #Configuração da página Streamlit
 with st.sidebar: 
     col1, col2, col3 = st.columns([1,3,1])
     with col2:
         st.image('https://github.com/emidiosouza/estudo066_inovacao_kukac/blob/main/kbot.png?raw=true', width=150)
-st.sidebar.header(":violet[Olá, eu sou Kbot, a Kukacker!]", divider='violet')
+st.sidebar.header(":violet[Olá, eu sou Kbot, a Kukacker.]", divider='violet')
 with st.sidebar: 	
     st.write("Fui treinada para te ajudar a resolver problemas do dia a dia da Kukac, agindo de acordo com nosso código de ética. Se precisar de ajuda, me conte o problema que está enfrentando e eu vou sugerir um plano de ação que você deve tomar para agir de acordo com nosso código.")
     st.link_button("Acesse o Código de Ética", "http://www.kukac.ai/codigodeetica")
@@ -86,21 +152,6 @@ st.subheader(":violet[Como posso ajudar hoje?]", help="""
   - Recebi uma reclamação de um cliente sobre a demora na entrega de seu projeto.
   - Um de nossos colaboradores tem faltado constantemente ao trabalho e não entrega seus resultados no prazo.
 """, divider='rainbow')
-
-
-# Função para gerar áudio
-def generate_audio_from_text(tts_text):
-    response = client.audio.speech.create(
-        model="tts-1",
-        voice="nova",
-        input=tts_text
-    )
-    # Salvar o arquivo de áudio
-    audio_file_path = "audio_output.mp3"
-    with open(audio_file_path, "wb") as file:
-        file.write(response.content)
-    return audio_file_path
-
 
 #Configurações OpenAI
 if "assistant" not in st.session_state:
@@ -227,3 +278,4 @@ if hasattr(st.session_state.run, 'status'):
     elif st.session_state.run.status == "completed":
         if audio_on:
             st.audio(audio_file_path, format='audio/mp3')
+
