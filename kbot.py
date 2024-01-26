@@ -56,8 +56,10 @@ button[title="View fullscreen"]{
 st.markdown(hide_img_fs, unsafe_allow_html=True)
 
 #Configuração da página Streamlit
-st.sidebar.write(" ")
-st.sidebar.image('https://github.com/emidiosouza/estudo066_inovacao_kukac/blob/main/kbot.png?raw=true', width=280)
+with st.sidebar: 
+    col1, col2, col3 = st.columns([2, 4, 1])
+    with col2:
+        st.image('https://github.com/emidiosouza/estudo066_inovacao_kukac/blob/main/kbot.png?raw=true', width=150)
 st.sidebar.header(":violet[Olá, eu sou Kbot, a Kukacker!]", divider='violet')
 with st.sidebar: 	
     st.write("Fui treinada para te ajudar a resolver problemas do dia a dia da Kukac, agindo de acordo com nosso código de ética. Se precisar de ajuda, me conte o problema que está enfrentando e eu vou sugerir um plano de ação que você deve tomar para agir de acordo com nosso código.")
