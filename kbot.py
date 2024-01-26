@@ -58,7 +58,7 @@ st.markdown(hide_img_fs, unsafe_allow_html=True)
 #Configuração da página Streamlit
 st.sidebar.write(" ")
 st.sidebar.image('https://github.com/emidiosouza/estudo066_inovacao_kukac/blob/main/kbot.png?raw=true', width=280)
-st.sidebar.subheader("Olá, eu sou Kbot, a Kukacker!", divider='violet')
+st.sidebar.header("Olá, eu sou Kbot, a Kukacker!", divider='violet')
 with st.sidebar: 	
     st.write("Fui treinada para te ajudar a resolver problemas do dia a dia da Kukac, agindo de acordo com nosso código de ética. Se precisar de ajuda, me conte o problema que está enfrentando e eu vou sugerir um plano de ação que você deve tomar para agir de acordo com nosso código.")
     st.link_button("Acesse o Código de Ética", "http://www.kukac.ai/codigodeetica")
