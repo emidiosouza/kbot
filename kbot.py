@@ -69,7 +69,7 @@ st.markdown(hide_img_fs, unsafe_allow_html=True)
 
 #Configuração da página Streamlit
 with st.sidebar: 
-    col1, col2, col3 = st.columns([1,1,1])
+    col1, col2, col3 = st.columns(3)
     with col2:
         st.image('https://github.com/emidiosouza/estudo066_inovacao_kukac/blob/main/kbot.png?raw=true', width=150)
 st.sidebar.header(":violet[Olá, eu sou Kbot, a Kukacker!]", divider='violet')
